@@ -7,3 +7,4 @@ end
 run ApplicationController
 use GamesController
 use UsersController
+use SessionsController

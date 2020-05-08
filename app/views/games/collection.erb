@@ -1,0 +1,8 @@
+<h1>This is the list of all user submitted games! </h1>
+<% @games.each do |g|%>
+   <b>Title: </b> <%= g.title%>
+   <b>Genre: </b> <%= g.genre%></b>
+   <b>Value: </b> $<%= g.price%></b>
+   <br>
+   <span></span>
+<% end %>

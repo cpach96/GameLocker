@@ -1,0 +1,7 @@
+<h1>Add a Title to your collection </h1>
+<%= @error %>
+<form action="/games/create" method="POST">
+<input type="text" name="game[title]" placeholder="Game Title">
+<input type="text" name="game[genre]" placeholder="Game Genre">
+<input type="text" name="game[price]" placeholder="Game Value(Whole number)">
+<input type="submit" value="Add Game!">

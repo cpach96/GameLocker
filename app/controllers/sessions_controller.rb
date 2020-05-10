@@ -26,6 +26,9 @@ class SessionsController < ApplicationController
       if params["user"]["username"].empty? || params["user"]["password"].empty?
         @error = "You did not fill out a required field, please do not leave any blank"
         erb :"users/signup"
+      elsif User.find_by_username(params["user"]["username"]) != nil
+        @error = "This username already exists please try a different one"
+        erb :"users/signup"
       else
         user = User.create(params["user"])
         session["user_id"] = user.id
@@ -37,5 +40,16 @@ class SessionsController < ApplicationController
     get '/logout' do
       session.clear
       redirect '/'
+    end
+
+    helpers do
+      def logged_in?
+        !!session[:user_id]
+        
+      end
+  
+      def current_user
+        User.find(session[:user_id])
+      end
     end
 end

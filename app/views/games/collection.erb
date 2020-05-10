@@ -1,8 +1,13 @@
 <h1>This is the list of all user submitted games! </h1>
-<% @games.each do |g|%>
-   <b>Title: </b> <%= g.title%>
-   <b>Genre: </b> <%= g.genre%></b>
-   <b>Value: </b> $<%= g.price%></b>
+<form action="/games/add" method="POST">
+<% @games.each do |game|%>
+   <b>Title: </b> <%= game.title%>
+   <b>Genre: </b> <%= game.genre%></b>
+   <b>Value: </b> $<%= game.price%></b> Add it to your collection! <input type="checkbox" name="game[id]" id="game[id]" value="<%= game.id %>"> 
    <br>
    <span></span>
+   
 <% end %>
+<input type="submit" value="Add!">
+<h3> <%= @error %> </h3>
+</form>

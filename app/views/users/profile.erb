@@ -1,9 +1,10 @@
-<h1>Welcome  username will go here lol !! Here is your current collection</h1>
+<h1>Welcome <%= @user.username%>! Here is your current collection</h1>
 
 <% @user.games.each do |g|%>
-    <%= g.title%>
-    <%= g.genre%>
-    <%= g.price%>
+    <b>Title: <%= g.title%></b>
+    <b>Genre: <%= g.genre%></b>
+    <b>Price: $<%= g.price%></b>
+    <br>
 <% end %>
 
 <h2>Want to add a new game to your collection? <a href="/games/create">Add a game </a>

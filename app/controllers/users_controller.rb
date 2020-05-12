@@ -4,10 +4,16 @@ class UsersController < ApplicationController
   #profile page is gonna be users collection
 
   #this redirects you to your homepage from link
-  get "/users/:id" do
-    @user = User.find(session[:user_id])
-    erb :"/users/profile"
+  get "/users/profile" do
+    if logged_in?
+    @user = current_user
+    erb :'/users/profile'
+    else
+      erb :"/welcome"
+    end
   end
+  ## BUUUUG I cant FIGURE OUT WHY LOGGED_IN WONT WORK HERE WTFFFF??? going to this link breaks it because youre not logged in want to prevent this
+  #i think paths are fucced fix this
 
   #this is going to let you remove a game from your join table 
   get "/users/:id/edit" do
@@ -16,9 +22,6 @@ class UsersController < ApplicationController
   end
 
   post "/users/edit" do
-    @user = User.find(session[:user_id])
-
-    redirect "/users/profile"
   end
 
   get "/users/:id/edit" do

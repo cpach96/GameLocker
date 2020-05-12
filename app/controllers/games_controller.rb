@@ -8,7 +8,11 @@ class GamesController < ApplicationController
 
   #brings you to the create a game page.
   get "/games/create" do
+    if logged_in?
     erb :"/games/create"
+    else
+      erb :'/'
+    end
   end
 
   # GET: /games/5
@@ -20,20 +24,25 @@ class GamesController < ApplicationController
       @error = "This game has already been added to the list! Please try again"
       erb :"/games/create"
     else
-      @user = User.find(session[:user_id])
+      @user = current_user
       @game = Game.create(params[:game])
       @user.games << @game
       erb :"/users/profile"
+    end
+
   end
-end
 
   get '/games/collection' do
+    if logged_in?
     erb :"/games/collection"
+    else
+      erb :"/"
+    end
   end
 
   post '/games/add' do
     #this works but im very suspicious, doesnt display error wont work unless redirect because it takes in the game id? Routes probably
-    @user = User.find(session[:user_id])
+    @user = current_user
     @game = Game.find_by_id(params["game"]["id"])
     if @user.games.include?(@game)
     @error = "This game already exists in your personal collection! Select another option"
@@ -45,17 +54,22 @@ end
   end
 
   #This should only let you edit your own upload to the table
-  get "/games/:id/edit" do
-    erb :"/games/edit.html"
+  get "/games/edit" do
+    erb :"/games/edit"
   end
 
-  # PATCH: /games/5
-  patch "/games/:id" do
-    redirect "/games/:id"
+  # Heres the thing. Working on editing your submissions. This edit is going to pose as a delete from the usergames table not from the full collection
+  post "/games/edit" do
+     
   end
 
-  # DELETE: /games/5/delete
-  delete "/games/:id/delete" do
-    redirect "/games"
+  # this works to end the games relation in join table does not delete from the game itself since its not directly owned by a user
+  post "/games/delete" do
+    @user = current_user
+    @game = Game.find_by_id(params["g"]["id"])
+    @user.games.destroy(@game.id)
+    
+    @success = "Game Removed"
+    erb :"/users/profile"
   end
 end

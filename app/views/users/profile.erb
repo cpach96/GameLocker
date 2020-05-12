@@ -1,10 +1,17 @@
 <h1>Welcome <%= @user.username%>! Here is your current collection</h1>
-
+<h2><a href="/games">Check out the archive!</a></h2>
+<form action="/games/delete" method="POST">
 <% @user.games.each do |g|%>
     <b>Title: <%= g.title%></b>
     <b>Genre: <%= g.genre%></b>
-    <b>Price: $<%= g.price%></b>
+    <b>Price: $<%= g.price%></b><input type="checkbox" name="g[id]" id="g[id]" value="<%= g.id %>"> 
     <br>
 <% end %>
+<p><%= @success %></p>
+<p>
+<p>Total Collection Value: $<%= @user.games.inject(0){|sum, g| sum + g.price}%></p>
 
 <h2>Want to add a new game to your collection? <a href="/games/create">Add a game </a>
+<h3><input type="submit" value="Remove selected game"></h3>
+</form>
+<footer><a href="/logout">logout</a></footer>

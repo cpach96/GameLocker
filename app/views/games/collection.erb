@@ -1,14 +1,43 @@
-<h1>This is the list of all user submitted games! </h1>
+<!DOCTYPE html>
+ <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+
+    <title>GameLocker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/mystyle.css" />
+	
+  </head>
+  <style>
+  body{
+	  font-family: Arial, Helvetica, sans-serif;
+	  background-color:snow;
+  }
+  </style>
+
+  <ul>
+  <li><a href="/users/profile">Profile</a></li>
+  <li><a href="/games">Archive</a></li>
+  <li><a href="/games/create">Add a game </a></li>
+  </ul>
+
+   <h1>This is the list of all user submitted games! </h1>
+   <h3> <%= @error %> </h3>
 <form action="/games/add" method="POST">
 <% @games.each do |game|%>
-   <b>Title: </b> <%= game.title%>
-   <b>Genre: </b> <%= game.genre%></b>
-   <b>Value: </b> $<%= game.price%></b> Add it to your collection! <input type="checkbox" name="game[id]" id="game[id]" value="<%= game.id %>"> 
+   <p><b>Title: </b> <%= game.title%>
+   <b>Genre: </b> <%= game.genre%>
+   <b>Value: </b> $<%= game.price%></b> Add it to your collection! <input type="checkbox" name="game[id]" id="game[id]" value="<%= game.id %>"></p>
    <br>
-   <span></span>
    
 <% end %>
 <input type="submit" value="Add!">
-<h3> <%= @error %> </h3>
+
 </form>
-<footer> <a href="/logout">logout</a> <a href="/users/profile">profile</a></footer>
+<div class="footer">
+    <a href="/logout">logout</a>
+    <small>&copy; 2020 <strong>GameLocker</strong></small>
+</footer>
+
+</html>

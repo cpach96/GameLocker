@@ -1,7 +1,39 @@
+<!DOCTYPE html>
+ <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+
+    <title>GameLocker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/mystyle.css" />
+	
+  </head>
+  <style>
+  body{
+	  font-family: Arial, Helvetica, sans-serif;
+	  background-color:snow;
+  }
+  </style>
+
+  <ul>
+  <li><a href="/users/profile">Profile</a></li>
+  <li><a href="/games">Archive</a></li>
+  <li><a href="/games/create">Add a game </a></li>
+  </ul>
+
 <h1>Add a Title to your collection </h1>
-<%= @error %>
 <form action="/games/create" method="POST">
 <input type="text" name="game[title]" placeholder="Game Title">
 <input type="text" name="game[genre]" placeholder="Game Genre">
 <input type="text" name="game[price]" placeholder="Game Value(Whole number)">
-<input type="submit" value="Add Game!">
+<input type="submit" value="Add Game!"><br>
+<%= @error %>
+</form>
+
+<div class="footer">
+    <a href="/logout">logout</a>
+    <small>&copy; 2020 <strong>GameLocker</strong></small>
+</footer>
+
+</html>

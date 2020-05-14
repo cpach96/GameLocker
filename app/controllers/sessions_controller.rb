@@ -17,12 +17,12 @@ class SessionsController < ApplicationController
           erb :"users/profile"
         else
           @error = "Invalid credentials, Please try your username or password again"
-          erb :"/users/login"
+          redirect :"/"
         end
     end
   
     post '/signup' do
-      ## make sure to add unique users so there cant be duplicates in user array
+      ## make sure to add unique users so there cant be duplicates in user array. Done 5/13
       if params["user"]["username"].empty? || params["user"]["password"].empty?
         @error = "You did not fill out a required field, please do not leave any blank"
         erb :"users/signup"

@@ -1,10 +1,38 @@
-<h1>Welcome to Game Locker Test!</h1>
-<h2>Log in below to show off your collection!!</h2>
+<!DOCTYPE html>
+ <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 
-<form action="/login" method="POST">
+    <title>GameLocker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/mystyle.css" />
+	
+  </head>
+  <style>
+  body{
+	  font-family: Arial, Helvetica, sans-serif;
+	  background-color:snow;
+  }
+  </style>
+<body>
+
+	<h1>Welcome to Game Locker!!!</h1>
+	<h2>Log in below to show off your collection!!</h2>
+	<form action="/login" method="POST">
   	<input type="text" name="user[username]" placeholder="Username:">
 	  <input type="password" name="user[password]" placeholder="Password:">
-    <input type="submit" value="Log In">
-</form>
-<h3>Not a member? Sign up <a href="/signup">here</a>today for free and join the community!!</h3>
+      <input type="submit" class="registerbtn" value="Log In">
+	</form>
 
+
+	
+</body>
+
+
+<div class="footer">
+<p>Not a member? Sign up <a href="/signup">here</a>today for free and join the community!!</p>
+ <small>&copy; 2020 <strong>GameLocker</strong></small>
+</div>
+
+</html>

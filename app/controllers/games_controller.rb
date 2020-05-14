@@ -1,21 +1,26 @@
 class GamesController < ApplicationController
 
-  # game homepage. I want this to dispay ALL games submitted by all users like a master list.
+  # game homepage. I want this to dispay ALL games submitted by all users like a master list. Games will not be removed from this list. Duplicates cannot exist
+
   get "/games" do
+    if logged_in?
     @games = Game.all
     erb :"/games/collection"
+    else
+      redirect :'/'
+    end
   end
 
-  #brings you to the create a game page.
+  #brings you to the create a game page. Only if logged in
   get "/games/create" do
     if logged_in?
     erb :"/games/create"
     else
-      erb :'/'
+      redirect :"/"
     end
   end
 
-  # GET: /games/5
+  #Games creation page. Can account for all empty params and counters existing games in array. Adds to users join table and game table.
   post "/games/create" do
     if params["game"]["title"].empty? || params["game"]["genre"].empty? || params["game"]["price"].empty?  
       @error = "You did not fill out a required field, please do not leave any blank"
@@ -32,16 +37,19 @@ class GamesController < ApplicationController
 
   end
 
+  #only lets you view collection if you're logged in. Redirects home if not
   get '/games/collection' do
     if logged_in?
     erb :"/games/collection"
     else
-      erb :"/"
+      redirect :"/"
     end
   end
 
+  #uses dynamic checkboxes based of id of game and joins it into the users table regardless of creator. Accounts for duplicates in the users table
+  # correlates to the inject on array in the profile view. Takes total sum of g.prices for all iterations and uses base of 0 to work around a nil value which would break it. Thinking on how to acct for no select
   post '/games/add' do
-    #this works but im very suspicious, doesnt display error wont work unless redirect because it takes in the game id? Routes probably
+    #Where did @error go lol its gone must fix. also fix this tomorrow for being empty throws error
     @user = current_user
     @game = Game.find_by_id(params["game"]["id"])
     if @user.games.include?(@game)
@@ -53,23 +61,21 @@ class GamesController < ApplicationController
     end
   end
 
-  #This should only let you edit your own upload to the table
-  get "/games/edit" do
-    erb :"/games/edit"
-  end
 
-  # Heres the thing. Working on editing your submissions. This edit is going to pose as a delete from the usergames table not from the full collection
-  post "/games/edit" do
-     
-  end
-
-  # this works to end the games relation in join table does not delete from the game itself since its not directly owned by a user
+  # this works to end the games relation in join table does not delete from the game itself since its not directly owned by a user. Can account for no selection
   post "/games/delete" do
     @user = current_user
+    if params.empty?
+      @error = "No game selected please try again"
+      erb :"/users/profile"
+    else
     @game = Game.find_by_id(params["g"]["id"])
     @user.games.destroy(@game.id)
-    
     @success = "Game Removed"
     erb :"/users/profile"
+    end
   end
+
+
+
 end

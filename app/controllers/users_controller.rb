@@ -12,9 +12,7 @@ class UsersController < ApplicationController
       redirect :'/'
     end
   end
-  ## BUUUUG I cant FIGURE OUT WHY LOGGED_IN WONT WORK HERE WTFFFF??? going to this link breaks it because youre not logged in want to prevent this
-  #i think paths are fucced fix this. Fixed 5/13
-
+ 
 
   get "/users/:id/edit" do
     erb :"/users/show.html"

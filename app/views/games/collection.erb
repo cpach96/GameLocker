@@ -23,7 +23,7 @@
   </ul>
 
    <h1>This is the list of all user submitted games! </h1>
-   <h3> <%= @error %> </h3>
+   <p> <%= @error %> </p>
 <form action="/games/add" method="POST">
 <% @games.each do |game|%>
    <p><b>Title: </b> <%= game.title%>

@@ -51,9 +51,17 @@ class GamesController < ApplicationController
   post '/games/add' do
     #Where did @error go lol its gone must fix. also fix this tomorrow for being empty throws error
     @user = current_user
+
+    if params.empty?
+      redirect :'/games'
+    else
     @game = Game.find_by_id(params["game"]["id"])
+    end
+
+    #this works I lnow it can be done in one, just couldnt figure it out.
+    #this also breaks the use of custom error messages?? 
+
     if @user.games.include?(@game)
-    @error = "This game already exists in your personal collection! Select another option"
     redirect :'/games'
     else
     @user.games << @game
